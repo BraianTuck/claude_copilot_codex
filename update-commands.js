@@ -197,6 +197,27 @@ function injectNewCommands(src, newCommands, existingData) {
   return modified;
 }
 
+async function sendTelegram(commands) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+
+  const date = new Date().toISOString().slice(0, 10);
+  const lines = commands.map(({ tool, command }) =>
+    `• [${tool}] ${command[0]} — ${command[2]}`
+  ).join('\n');
+  const text = `AI Command Atlas - ${date}\n\n${commands.length} comando(s) nuevo(s) detectado(s):\n${lines}`;
+
+  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: chatId, text }),
+  });
+
+  if (res.ok) console.log('Notificacion Telegram enviada.');
+  else console.warn('WARN: No se pudo enviar Telegram:', await res.text());
+}
+
 async function main() {
   const githubToken = process.env.GITHUB_TOKEN;
   if (!githubToken) {
@@ -231,6 +252,7 @@ async function main() {
   writeFileSync(SCRIPT_PATH, updatedSrc, 'utf8');
   console.log('script.js actualizado correctamente.');
   updateHistory(newCommands);
+  await sendTelegram(newCommands);
 }
 
 main().catch(err => {
