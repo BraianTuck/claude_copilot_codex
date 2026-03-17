@@ -460,6 +460,10 @@ const data = {
   },
 };
 
+const changelog = [
+  // { date: "YYYY-MM-DD", entries: [{ tool: "claude", cmd: "/cmd", desc: "..." }] }
+];
+
 const order = ["claude", "codex", "copilot"];
 const search = { raw: "", norm: "" };
 let active = "claude";
@@ -490,13 +494,40 @@ const label = (kind) =>
   }[kind] || "built-in");
 
 function renderTabs() {
-  document.getElementById("tool-switcher").innerHTML = order
-    .map((tool) => {
-      const item = data[tool];
-      const on = tool === active;
-      return `<button class="tool-tab tool-tab--${tool} ${on ? "is-active" : ""}" type="button" data-tool="${tool}" aria-pressed="${on}"><span>${item.label}</span><small>${total(tool)} cmds</small></button>`;
-    })
-    .join("");
+  const tabs = order.map((tool) => {
+    const item = data[tool];
+    const on = tool === active;
+    return `<button class="tool-tab tool-tab--${tool} ${on ? "is-active" : ""}" type="button" data-tool="${tool}" aria-pressed="${on}"><span>${item.label}</span><small>${total(tool)} cmds</small></button>`;
+  });
+  const totalEntries = changelog.reduce((n, e) => n + e.entries.length, 0);
+  const rnOn = active === "changelog";
+  tabs.push(`<button class="tool-tab tool-tab--changelog ${rnOn ? "is-active" : ""}" type="button" data-tool="changelog" aria-pressed="${rnOn}"><span>Release Notes</span><small>${totalEntries} nuevo${totalEntries === 1 ? "" : "s"}</small></button>`);
+  document.getElementById("tool-switcher").innerHTML = tabs.join("");
+}
+
+function renderChangelogPage() {
+  if (!changelog.length) {
+    document.getElementById("cheatsheet-grid").innerHTML =
+      `<section class="empty-state"><strong>Sin actualizaciones aún</strong><p>El workflow diario agregará comandos nuevos aquí cuando los detecte.</p></section>`;
+    return;
+  }
+  document.getElementById("cheatsheet-grid").innerHTML = changelog.map((entry) => {
+    const rows = entry.entries.map(e =>
+      `<article class="command-item">
+        <div class="command-topline">
+          <code>${esc(e.cmd)}</code>
+          <span class="pill rn-pill rn-pill--${e.tool}">${e.tool}</span>
+        </div>
+        <p class="command-desc">${esc(e.desc)}</p>
+      </article>`
+    ).join("");
+    return `<section class="card wide">
+      <header class="card-header">
+        <div class="card-title"><h3>${esc(entry.date)}</h3><p>${entry.entries.length} comando${entry.entries.length === 1 ? "" : "s"} agregado${entry.entries.length === 1 ? "" : "s"}</p></div>
+      </header>
+      <div class="command-list">${rows}</div>
+    </section>`;
+  }).join("");
 }
 
 function renderHero() {
@@ -617,6 +648,10 @@ function renderSources() {
 function renderAll() {
   document.body.dataset.tool = active;
   renderTabs();
+  if (active === "changelog") {
+    renderChangelogPage();
+    return;
+  }
   renderHero();
   renderNotices();
   renderPulse();

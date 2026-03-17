@@ -125,20 +125,31 @@ Solo incluir comandos que claramente aparecen en los changelogs/docs pero NO est
   }
 }
 
-function updateReadmeChangelog(injectedCommands) {
+function updateHistory(injectedCommands) {
   if (!injectedCommands.length) return;
-  const readme = readFileSync(HISTORY_PATH, 'utf8');
   const date = new Date().toISOString().slice(0, 10);
+
+  // Actualizar docs/HISTORY.md
+  const history = readFileSync(HISTORY_PATH, 'utf8');
   const lines = injectedCommands.map(({ tool, command }) =>
     `- **${tool}** \`${command[0]}\` — ${command[2]}`
   );
-  const entry = `\n### ${date}\n${lines.join('\n')}\n`;
-  const updated = readme.replace(
-    '<!-- CHANGELOG:START -->',
-    `<!-- CHANGELOG:START -->${entry}`
+  const mdEntry = `\n### ${date}\n${lines.join('\n')}\n`;
+  writeFileSync(HISTORY_PATH, history.replace('<!-- CHANGELOG:START -->', `<!-- CHANGELOG:START -->${mdEntry}`), 'utf8');
+
+  // Inyectar entrada en changelog[] de script.js
+  const src = readFileSync(SCRIPT_PATH, 'utf8');
+  const entries = injectedCommands.map(({ tool, command }) =>
+    `{ tool: "${tool}", cmd: "${command[0]}", desc: "${command[2].replace(/"/g, '\\"')}" }`
+  ).join(', ');
+  const jsEntry = `\n  { date: "${date}", entries: [${entries}] },`;
+  const updated = src.replace(
+    '// { date: "YYYY-MM-DD", entries: [{ tool: "claude", cmd: "/cmd", desc: "..." }] }',
+    `// { date: "YYYY-MM-DD", entries: [{ tool: "claude", cmd: "/cmd", desc: "..." }] }${jsEntry}`
   );
-  writeFileSync(HISTORY_PATH, updated, 'utf8');
-  console.log(`README.md actualizado con ${injectedCommands.length} entrada(s).`);
+  writeFileSync(SCRIPT_PATH, updated, 'utf8');
+
+  console.log(`Historial actualizado con ${injectedCommands.length} entrada(s).`);
 }
 
 function escapeRegex(str) {
@@ -219,7 +230,7 @@ async function main() {
 
   writeFileSync(SCRIPT_PATH, updatedSrc, 'utf8');
   console.log('script.js actualizado correctamente.');
-  updateReadmeChangelog(newCommands);
+  updateHistory(newCommands);
 }
 
 main().catch(err => {
