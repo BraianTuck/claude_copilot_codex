@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Coding Agent Command Atlas</title>
+    <meta
+      name="description"
+      content="Cheatsheet visual con comandos de Claude Code, Codex y GitHub Copilot."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Claude Code, Codex y GitHub Copilot</p>
+        <h1>
+          Coding Agent <span>Command Atlas</span>
+        </h1>
+        <p class="subtitle" id="hero-subtitle">
+          Una sola pagina para comparar comandos, flujos y atajos de los CLIs
+          agenticos mas usados sin perder el lenguaje visual de la cheatsheet
+          original.
+        </p>
+
+        <nav
+          class="tool-switcher"
+          id="tool-switcher"
+          aria-label="Seleccionar herramienta"
+        ></nav>
+
+        <section class="search-panel" aria-label="Buscar comandos">
+          <div class="search-copy">
+            <p class="section-kicker" id="active-kicker">Claude Code</p>
+            <h2 id="search-heading">Buscar comandos en la pestaña activa</h2>
+          </div>
+
+          <label class="search-field" for="command-search">
+            <span class="search-label">
+              Buscar por comando, categoria o descripcion
+            </span>
+            <input
+              id="command-search"
+              type="search"
+              placeholder="Ej: /mcp, review, sandbox, login, plugin..."
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="search-meta">
+            <p id="search-summary">Cargando contenido...</p>
+            <button id="search-clear" class="search-clear" type="button" hidden>
+              Limpiar
+            </button>
+          </div>
+        </section>
+      </header>
+
+      <section class="notice-strip" id="notice-strip" aria-label="Avisos"></section>
+
+      <section class="pulse-bar">
+        <div class="pulse-copy">
+          <p class="section-kicker" id="pulse-kicker">Claude Code</p>
+          <h2 id="pulse-title">Comandos para memorizar primero</h2>
+          <p class="pulse-intro" id="pulse-intro"></p>
+        </div>
+        <div class="pulse-commands" id="pulse-commands"></div>
+      </section>
+
+      <main class="cheatsheet-grid" id="cheatsheet-grid"></main>
+
+      <footer class="sources">
+        <div>
+          <p class="section-kicker">Fuentes</p>
+          <h2 id="sources-title">Base del contenido</h2>
+        </div>
+        <ul id="source-list"></ul>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
