@@ -157,9 +157,9 @@ h3 {
 }
 
 h1 {
-  max-width: 10ch;
   font-size: clamp(3rem, 6vw, 5.4rem);
   letter-spacing: -0.03em;
+  white-space: nowrap;
 }
 
 h1 span {
