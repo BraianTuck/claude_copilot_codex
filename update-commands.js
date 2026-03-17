@@ -5,7 +5,7 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const SCRIPT_PATH = join(__dirname, 'script.js');
-const README_PATH = join(__dirname, 'README.md');
+const HISTORY_PATH = join(__dirname, 'docs', 'HISTORY.md');
 
 const SOURCES = {
   claude: {
@@ -127,7 +127,7 @@ Solo incluir comandos que claramente aparecen en los changelogs/docs pero NO est
 
 function updateReadmeChangelog(injectedCommands) {
   if (!injectedCommands.length) return;
-  const readme = readFileSync(README_PATH, 'utf8');
+  const readme = readFileSync(HISTORY_PATH, 'utf8');
   const date = new Date().toISOString().slice(0, 10);
   const lines = injectedCommands.map(({ tool, command }) =>
     `- **${tool}** \`${command[0]}\` — ${command[2]}`
@@ -137,7 +137,7 @@ function updateReadmeChangelog(injectedCommands) {
     '<!-- CHANGELOG:START -->',
     `<!-- CHANGELOG:START -->${entry}`
   );
-  writeFileSync(README_PATH, updated, 'utf8');
+  writeFileSync(HISTORY_PATH, updated, 'utf8');
   console.log(`README.md actualizado con ${injectedCommands.length} entrada(s).`);
 }
 

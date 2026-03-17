@@ -25,5 +25,4 @@ Publicado en GitHub Pages: https://braiантuck.github.io/claude_copilot_codex
 
 ## Historial de actualizaciones
 
-<!-- CHANGELOG:START -->
-<!-- CHANGELOG:END -->
+Ver [docs/HISTORY.md](docs/HISTORY.md).
