@@ -23,7 +23,7 @@ const GITHUB_MODELS_ENDPOINT = 'https://models.inference.ai.azure.com/chat/compl
 const MODEL = 'gpt-4o-mini';
 
 function loadExistingData(src) {
-  const match = src.match(/const data\s*=\s*(\{[\s\S]*?\});\s*\nconst order/);
+  const match = src.match(/const data\s*=\s*(\{[\s\S]*?\});\s*\nconst changelog/);
   if (!match) throw new Error('No se pudo extraer el objeto data de script.js');
   const fn = new Function(`return (${match[1]})`);
   return fn();
