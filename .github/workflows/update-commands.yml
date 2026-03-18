@@ -37,3 +37,13 @@ jobs:
           git add script.js docs/HISTORY.md
           git commit -m "chore: auto-update commands [skip ci]"
           git push
+
+      - name: Daily Telegram status
+        if: always()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -H "Content-Type: application/json" \
+            -d "{\"chat_id\": \"${TELEGRAM_CHAT_ID}\", \"text\": \"✅ AI Command Atlas — revisión diaria completada\n$(date -u +'%Y-%m-%d %H:%M UTC')\"}"
