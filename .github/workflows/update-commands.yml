@@ -45,11 +45,21 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           HORA_MVD=$(TZ='America/Montevideo' date +'%Y-%m-%d %H:%M')
-          if git log --oneline -1 | grep -q "auto-update commands"; then
-            ESTADO="Se encontraron nuevos comandos ✅"
+          if [ -f /tmp/new_commands.txt ]; then
+            COMANDOS=$(cat /tmp/new_commands.txt)
+            TEXT="🤖 AI Command Atlas
+Revisión diaria completada - Se encontraron nuevos comandos ✅
+
+${COMANDOS}
+
+🕐 ${HORA_MVD} (Montevideo)"
           else
-            ESTADO="No se encontraron nuevos comandos"
+            TEXT="🤖 AI Command Atlas
+Revisión diaria completada - No se encontraron nuevos comandos
+
+🕐 ${HORA_MVD} (Montevideo)"
           fi
+          echo "$TEXT" | jq -Rs "{chat_id: env.TELEGRAM_CHAT_ID, text: .}" > /tmp/payload.json
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -H "Content-Type: application/json" \
-            -d "{\"chat_id\": \"${TELEGRAM_CHAT_ID}\", \"text\": \"🤖 AI Command Atlas\nRevisión diaria completada - ${ESTADO}\n🕐 ${HORA_MVD} (Montevideo)\"}"
+            -d @/tmp/payload.json
