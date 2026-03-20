@@ -23,9 +23,19 @@ const GITHUB_MODELS_ENDPOINT = 'https://models.inference.ai.azure.com/chat/compl
 const MODEL = 'gpt-4o-mini';
 
 function loadExistingData(src) {
-  const match = src.match(/const data\s*=\s*(\{[\s\S]*?\});\s*\nconst changelog/);
-  if (!match) throw new Error('No se pudo extraer el objeto data de script.js');
-  const fn = new Function(`return (${match[1]})`);
+  const startMarker = 'const data = ';
+  const start = src.indexOf(startMarker);
+  if (start === -1) throw new Error('No se pudo encontrar "const data" en script.js');
+  let depth = 0;
+  let i = start + startMarker.length;
+  const dataStart = i;
+  for (; i < src.length; i++) {
+    if (src[i] === '{') depth++;
+    else if (src[i] === '}') { depth--; if (depth === 0) break; }
+  }
+  if (depth !== 0) throw new Error('No se pudo extraer el objeto data de script.js (llaves desbalanceadas)');
+  const dataStr = src.slice(dataStart, i + 1);
+  const fn = new Function(`return (${dataStr})`);
   return fn();
 }
 
