@@ -47,17 +47,9 @@ jobs:
           HORA_MVD=$(TZ='America/Montevideo' date +'%Y-%m-%d %H:%M')
           if [ -f /tmp/new_commands.txt ]; then
             COMANDOS=$(cat /tmp/new_commands.txt)
-            TEXT="🤖 AI Command Atlas
-Revisión diaria completada - Se encontraron nuevos comandos ✅
-
-${COMANDOS}
-
-🕐 ${HORA_MVD} (Montevideo)"
+            TEXT=$(printf "🤖 AI Command Atlas\nRevisión diaria completada - Se encontraron nuevos comandos ✅\n\n%s\n\n🕐 %s (Montevideo)" "$COMANDOS" "$HORA_MVD")
           else
-            TEXT="🤖 AI Command Atlas
-Revisión diaria completada - No se encontraron nuevos comandos
-
-🕐 ${HORA_MVD} (Montevideo)"
+            TEXT=$(printf "🤖 AI Command Atlas\nRevisión diaria completada - No se encontraron nuevos comandos\n\n🕐 %s (Montevideo)" "$HORA_MVD")
           fi
           echo "$TEXT" | jq -Rs "{chat_id: env.TELEGRAM_CHAT_ID, text: .}" > /tmp/payload.json
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
