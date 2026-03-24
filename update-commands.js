@@ -9,35 +9,13 @@ const HISTORY_PATH = join(__dirname, 'docs', 'HISTORY.md');
 
 const SOURCES = {
   claude: {
-    changelog: 'https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md',
-  },
-  codex: {
-    docs: 'https://raw.githubusercontent.com/openai/codex/main/codex-cli/README.md',
-  },
-  copilot: {
-    docs: 'https://docs.github.com/en/copilot/reference/cli-command-reference',
+    linkedin: 'https://www.linkedin.com/showcase/claude/posts/?feedView=all',
   },
 };
 
 const GITHUB_MODELS_ENDPOINT = 'https://models.inference.ai.azure.com/chat/completions';
 const MODEL = 'gpt-4o-mini';
 
-function loadExistingData(src) {
-  const startMarker = 'const data = ';
-  const start = src.indexOf(startMarker);
-  if (start === -1) throw new Error('No se pudo encontrar "const data" en script.js');
-  let depth = 0;
-  let i = start + startMarker.length;
-  const dataStart = i;
-  for (; i < src.length; i++) {
-    if (src[i] === '{') depth++;
-    else if (src[i] === '}') { depth--; if (depth === 0) break; }
-  }
-  if (depth !== 0) throw new Error('No se pudo extraer el objeto data de script.js (llaves desbalanceadas)');
-  const dataStr = src.slice(dataStart, i + 1);
-  const fn = new Function(`return (${dataStr})`);
-  return fn();
-}
 
 async function fetchSource(url, githubToken) {
   const headers = { 'User-Agent': 'command-atlas-updater/1.0' };
@@ -69,39 +47,36 @@ async function fetchAllSources(githubToken) {
   return results;
 }
 
-async function detectNewCommands(existingData, sources, githubToken) {
-  const existingSummary = Object.entries(existingData).map(([tool, toolData]) => {
-    const cmds = toolData.cards.flatMap(c => c.c.map(cmd => cmd[0]));
-    return `${tool}: ${cmds.join(', ')}`;
-  }).join('\n');
+async function detectNewNews(existingChangelog, sources, githubToken) {
+  const existingTitles = existingChangelog.flatMap(e => e.entries.map(n => n.title));
 
   const sourcesText = Object.entries(sources).map(([tool, data]) => {
-    const content = Object.values(data).filter(Boolean).join('\n\n').slice(0, 3000);
+    const content = Object.values(data).filter(Boolean).join('\n\n').slice(0, 4000);
     return `=== ${tool.toUpperCase()} ===\n${content}`;
   }).join('\n\n');
 
-  const prompt = `Sos un asistente experto en herramientas de coding AI.
+  const prompt = `Sos un asistente experto en noticias de productos de IA.
 
-Tenés estos comandos ya documentados:
-${existingSummary}
+Estas son las noticias que ya están documentadas (títulos existentes):
+${existingTitles.length ? existingTitles.join('\n') : 'Ninguna aún'}
 
-Acá están los changelogs y docs actuales:
+Acá está el contenido de la página de LinkedIn de Claude con posts recientes:
 ${sourcesText}
 
-Tu tarea: identificar comandos NUEVOS que no estén ya en la lista. Para cada comando nuevo, devolvé un array JSON con este formato exacto (sin markdown, solo JSON puro):
+Tu tarea: identificar posts o anuncios NUEVOS que no estén ya en la lista. Para cada noticia nueva, devolvé un array JSON con este formato exacto (sin markdown, solo JSON puro):
 
 [
   {
-    "tool": "claude",
-    "cardTitle": "nombre de la card donde agregarlo (debe coincidir exactamente con una card existente)",
-    "command": ["/comando", "tipo", "descripcion breve en español", "version opcional"]
+    "date": "YYYY-MM-DD",
+    "title": "Título breve del post o novedad",
+    "body": "Resumen del contenido del post en español (máximo 2 oraciones)",
+    "url": "URL del link que incluye el post para leer más (si hay uno, si no: \"\")"
   }
 ]
 
-Si no hay comandos nuevos, devolvé: []
+Si no hay noticias nuevas, devolvé: []
 
-Tipos válidos: "built-in", "skill", "agent", "update", "cli", "flag", "setting", "shortcut", "experimental"
-Solo incluir comandos que claramente aparecen en los changelogs/docs pero NO están en la lista existente.`;
+Solo incluir posts que aparezcan claramente en el contenido y NO estén ya en la lista existente.`;
 
   const res = await fetch(GITHUB_MODELS_ENDPOINT, {
     method: 'POST',
@@ -135,75 +110,70 @@ Solo incluir comandos que claramente aparecen en los changelogs/docs pero NO est
   }
 }
 
-function updateHistory(injectedCommands) {
-  if (!injectedCommands.length) return;
+function updateHistory(injectedNews) {
+  if (!injectedNews.length) return;
   const date = new Date().toISOString().slice(0, 10);
 
-  // Actualizar docs/HISTORY.md
   const history = readFileSync(HISTORY_PATH, 'utf8');
-  const lines = injectedCommands.map(({ tool, command }) =>
-    `- **${tool}** \`${command[0]}\` — ${command[2]}`
+  const lines = injectedNews.map(({ title, url }) =>
+    `- **claude** ${title}${url ? ` — ${url}` : ''}`
   );
   const mdEntry = `\n### ${date}\n${lines.join('\n')}\n`;
   writeFileSync(HISTORY_PATH, history.replace('<!-- CHANGELOG:START -->', `<!-- CHANGELOG:START -->${mdEntry}`), 'utf8');
 
-  // Inyectar entrada en changelog[] de script.js
-  const src = readFileSync(SCRIPT_PATH, 'utf8');
-  const entries = injectedCommands.map(({ tool, command }) =>
-    `{ tool: "${tool}", cmd: "${command[0]}", desc: "${command[2].replace(/"/g, '\\"')}" }`
-  ).join(', ');
-  const jsEntry = `\n  { date: "${date}", entries: [${entries}] },`;
-  const updated = src.replace(
-    '// { date: "YYYY-MM-DD", entries: [{ tool: "claude", cmd: "/cmd", desc: "..." }] }',
-    `// { date: "YYYY-MM-DD", entries: [{ tool: "claude", cmd: "/cmd", desc: "..." }] }${jsEntry}`
-  );
-  writeFileSync(SCRIPT_PATH, updated, 'utf8');
-
-  console.log(`Historial actualizado con ${injectedCommands.length} entrada(s).`);
+  console.log(`Historial actualizado con ${injectedNews.length} entrada(s).`);
 }
 
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function injectNewCommands(src, newCommands, existingData) {
-  if (!newCommands.length) return src;
+function loadExistingChangelog(src) {
+  const marker = 'const changelog = ';
+  const start = src.indexOf(marker);
+  if (start === -1) return [];
+  let depth = 0, i = start + marker.length;
+  for (; i < src.length; i++) {
+    if (src[i] === '[') depth++;
+    else if (src[i] === ']') { depth--; if (depth === 0) break; }
+  }
+  try {
+    const fn = new Function(`return (${src.slice(start + marker.length, i + 1)})`);
+    return fn();
+  } catch { return []; }
+}
 
+function injectNewNews(src, newNews, existingChangelog) {
+  if (!newNews.length) return src;
+
+  const existingTitles = existingChangelog.flatMap(e => e.entries.map(n => n.title));
+  const date = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
   let modified = src;
   let injectedCount = 0;
+  const toInject = [];
 
-  for (const entry of newCommands) {
-    const { tool, cardTitle, command } = entry;
-    if (!existingData[tool]) continue;
-
-    const alreadyExists = existingData[tool].cards.some(card =>
-      card.c.some(c => c[0] === command[0])
-    );
-    if (alreadyExists) {
-      console.log(`  Omitiendo "${command[0]}" (ya existe)`);
+  for (const item of newNews) {
+    if (existingTitles.includes(item.title)) {
+      console.log(`  Omitiendo "${item.title}" (ya existe)`);
       continue;
     }
-
-    const cardPattern = new RegExp(
-      `(t:\\s*["']${escapeRegex(cardTitle)}["'][\\s\\S]*?c:\\s*\\[)`,
-      'g'
-    );
-
-    const commandStr = JSON.stringify(command);
-
-    if (cardPattern.test(modified)) {
-      modified = modified.replace(
-        new RegExp(`(t:\\s*["']${escapeRegex(cardTitle)}["'][\\s\\S]*?c:\\s*\\[)`),
-        (_, prefix) => prefix + `\n          ${commandStr},`
-      );
-      console.log(`  + Agregado "${command[0]}" a card "${cardTitle}" (${tool})`);
-      injectedCount++;
-    } else {
-      console.warn(`  WARN: No se encontró la card "${cardTitle}" para tool "${tool}"`);
-    }
+    toInject.push(item);
+    injectedCount++;
   }
 
-  console.log(`Inyectados ${injectedCount} comandos nuevos.`);
+  if (!toInject.length) return src;
+
+  const entries = toInject
+    .map(item => `{ tool: "claude", title: "${item.title.replace(/"/g, '\\"')}", body: "${item.body.replace(/"/g, '\\"')}", url: "${item.url}" }`)
+    .join(', ');
+  const jsEntry = `\n  { date: "${date}", entries: [${entries}] },`;
+
+  modified = modified.replace(
+    /\/\/ \{ date: "YYYY-MM-DD".*?\}\s*\}/,
+    (match) => match + jsEntry
+  );
+
+  console.log(`Inyectadas ${injectedCount} noticias nuevas en changelog.`);
   return modified;
 }
 
@@ -217,22 +187,22 @@ async function main() {
 
   console.log('Leyendo script.js...');
   const src = readFileSync(SCRIPT_PATH, 'utf8');
-  const existingData = loadExistingData(src);
-  console.log(`Tools cargadas: ${Object.keys(existingData).join(', ')}`);
+  const existingChangelog = loadExistingChangelog(src);
+  console.log(`Entradas en changelog: ${existingChangelog.length}`);
 
   console.log('Descargando fuentes...');
   const sources = await fetchAllSources(githubToken);
 
   console.log('Consultando GitHub Models API...');
-  const newCommands = await detectNewCommands(existingData, sources, githubToken);
-  console.log(`Comandos nuevos detectados: ${newCommands.length}`);
+  const newNews = await detectNewNews(existingChangelog, sources, githubToken);
+  console.log(`Noticias nuevas detectadas: ${newNews.length}`);
 
-  if (!newCommands.length) {
+  if (!newNews.length) {
     console.log('Sin cambios. Saliendo.');
     process.exit(0);
   }
 
-  const updatedSrc = injectNewCommands(src, newCommands, existingData);
+  const updatedSrc = injectNewNews(src, newNews, existingChangelog);
 
   if (updatedSrc === src) {
     console.log('Sin cambios efectivos en script.js. Saliendo.');
@@ -241,10 +211,10 @@ async function main() {
 
   writeFileSync(SCRIPT_PATH, updatedSrc, 'utf8');
   console.log('script.js actualizado correctamente.');
-  updateHistory(newCommands);
-  const lines = newCommands.map(({ tool, command }) =>
-    `• [${tool}] ${command[0]} — ${command[2]}`
-  ).join('\n');
+  updateHistory(newNews);
+  const lines = newNews.map(({ title, body, url }) =>
+    `• ${title}\n  ${body}${url ? `\n  ${url}` : ''}`
+  ).join('\n\n');
   writeFileSync('/tmp/new_commands.txt', lines, 'utf8');
 }
 

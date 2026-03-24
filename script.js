@@ -248,14 +248,7 @@ const data = {
       },
     ],
     sources: [
-      ["Built-in commands", "https://code.claude.com/docs/en/commands", "Referencia principal de comandos built-in visibles hoy."],
-      ["Slash commands / skills", "https://code.claude.com/docs/en/slash-commands", "Base para skills empaquetadas como /batch y /loop."],
-      ["Interactive mode", "https://code.claude.com/docs/en/interactive-mode", "Atajos y ergonomia del terminal."],
-      ["Claude Code changelog", "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md", "Sirve para cambios recientes como /reload-plugins y la transicion /fork -> /branch."],
-      ["GSD library", "https://github.com/gsd-build/get-shit-done", "Repositorio comunitario con comandos /gsd para planificacion, ejecucion por fases y auditorias."],
-      ["Claude SEO", "https://github.com/AgriciDaniel/claude-seo", "Repositorio comunitario con comandos /seo para auditorias SEO, schema, GEO/AEO y planning."],
-      ["Superpowers", "https://github.com/obra/superpowers", "Instalacion del plugin, workflow base y nombres actuales de las skills superpowers:*."],
-      ["Superpowers commands", "https://github.com/obra/superpowers/tree/main/commands", "Shims /brainstorm, /write-plan y /execute-plan; hoy publicados como deprecated."],
+      ["LinkedIn — Claude", "https://www.linkedin.com/showcase/claude/posts/?feedView=all", "Fuente oficial de noticias y actualizaciones de Claude. Cada post incluye un link con mas detalle."],
     ],
   },
   codex: {
@@ -350,9 +343,7 @@ const data = {
       },
     ],
     sources: [
-      ["Local validation: codex --help", "", "Base principal de subcomandos y flags de esta pestana, capturada hoy desde el CLI instalado."],
-      ["OpenAI for developers", "https://developers.openai.com/", "Contexto oficial del producto Codex y recursos asociados."],
-      ["codex-mini-latest model", "https://developers.openai.com/api/docs/models/codex-mini-latest", "OpenAI describe este modelo como optimizado para el Codex CLI."],
+      ["LinkedIn — Claude", "https://www.linkedin.com/showcase/claude/posts/?feedView=all", "Fuente de referencia de tendencias en AI coding agents."],
     ],
   },
   copilot: {
@@ -453,15 +444,14 @@ const data = {
       },
     ],
     sources: [
-      ["GitHub Copilot CLI command reference", "https://docs.github.com/en/copilot/reference/cli-command-reference", "Fuente principal de comandos del binario, slash commands y shortcuts."],
-      ["Using GitHub Copilot CLI", "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/use-copilot-cli", "Contexto de uso, gestion de contexto y help topics."],
-      ["About GitHub Copilot CLI", "https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-copilot-cli", "Contexto del producto y cambio de modelo via /model o --model."],
+      ["LinkedIn — Claude", "https://www.linkedin.com/showcase/claude/posts/?feedView=all", "Fuente de referencia de tendencias en AI coding agents."],
     ],
   },
 };
 
 const changelog = [
-  // { date: "YYYY-MM-DD", entries: [{ tool: "claude", cmd: "/cmd", desc: "..." }] }
+  // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-03-21", entries: [{ tool: "claude", title: "Projects now available in Cowork", body: "Projects are now available in Cowork. Keep your tasks and context in one place, focused on one area of work. Files and instructions stay on your computer. Import existing projects in one click, or start fresh.", url: "https://lnkd.in/gZrAJjqb" }] },
 ];
 
 const order = ["claude", "codex", "copilot"];
@@ -508,22 +498,23 @@ function renderTabs() {
 function renderChangelogPage() {
   if (!changelog.length) {
     document.getElementById("cheatsheet-grid").innerHTML =
-      `<section class="empty-state"><strong>Sin actualizaciones aún</strong><p>El workflow diario agregará comandos nuevos aquí cuando los detecte.</p></section>`;
+      `<section class="empty-state"><strong>Sin actualizaciones aún</strong><p>El workflow diario agregará noticias nuevas aquí cuando las detecte.</p></section>`;
     return;
   }
   document.getElementById("cheatsheet-grid").innerHTML = changelog.map((entry) => {
     const rows = entry.entries.map(e =>
       `<article class="command-item">
         <div class="command-topline">
-          <code>${esc(e.cmd)}</code>
+          <span class="news-title-inline">${esc(e.title)}</span>
           <span class="pill rn-pill rn-pill--${e.tool}">${e.tool}</span>
         </div>
-        <p class="command-desc">${esc(e.desc)}</p>
+        <p class="command-desc">${esc(e.body)}</p>
+        ${e.url ? `<a class="news-link" href="${esc(e.url)}" target="_blank" rel="noreferrer">${esc(e.url)}</a>` : ""}
       </article>`
     ).join("");
     return `<section class="card wide">
       <header class="card-header">
-        <div class="card-title"><h3>${esc(entry.date)}</h3><p>${entry.entries.length} comando${entry.entries.length === 1 ? "" : "s"} agregado${entry.entries.length === 1 ? "" : "s"}</p></div>
+        <div class="card-title"><h3>${esc(entry.date)}</h3><p>${entry.entries.length} novedad${entry.entries.length === 1 ? "" : "es"}</p></div>
       </header>
       <div class="command-list">${rows}</div>
     </section>`;
@@ -633,6 +624,7 @@ function renderSummary(cards, commands) {
     ? `${commands} comando${commands === 1 ? "" : "s"} en ${cards} bloque${cards === 1 ? "" : "s"} para "${search.raw}".`
     : `No hay resultados para "${search.raw}" en ${item.label}.`;
 }
+
 
 function renderSources() {
   document.getElementById("source-list").innerHTML = data[active].sources

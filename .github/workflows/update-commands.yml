@@ -46,10 +46,10 @@ jobs:
         run: |
           HORA_MVD=$(TZ='America/Montevideo' date +'%Y-%m-%d %H:%M')
           if [ -f /tmp/new_commands.txt ]; then
-            COMANDOS=$(cat /tmp/new_commands.txt)
-            TEXT=$(printf "🤖 AI Command Atlas\nRevisión diaria completada - Se encontraron nuevos comandos ✅\n\n%s\n\n🕐 %s (Montevideo)" "$COMANDOS" "$HORA_MVD")
+            NOTICIAS=$(cat /tmp/new_commands.txt)
+            TEXT=$(printf "🤖 AI Command Atlas\nNuevas noticias de Claude ✅\n\n%s\n\n🔗 linkedin.com/showcase/claude\n🕐 %s (Montevideo)" "$NOTICIAS" "$HORA_MVD")
           else
-            TEXT=$(printf "🤖 AI Command Atlas\nRevisión diaria completada - No se encontraron nuevos comandos\n\n🕐 %s (Montevideo)" "$HORA_MVD")
+            TEXT=$(printf "🤖 AI Command Atlas\nRevisión diaria completada - Sin nuevas noticias\n\n🔗 linkedin.com/showcase/claude\n🕐 %s (Montevideo)" "$HORA_MVD")
           fi
           echo "$TEXT" | jq -Rs "{chat_id: env.TELEGRAM_CHAT_ID, text: .}" > /tmp/payload.json
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \

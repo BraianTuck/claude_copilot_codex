@@ -578,6 +578,12 @@ body[data-tool="changelog"] #hero-subtitle { display: none; }
   color: #3d2417;
 }
 
+.news-title-inline {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
 .pill {
   display: inline-flex;
   align-items: center;
@@ -771,5 +777,111 @@ body[data-tool="changelog"] #hero-subtitle { display: none; }
 
   .card-title h3 {
     font-size: 1.65rem;
+  }
+}
+
+/* ── News section ───────────────────────────────────────────── */
+
+.news-grid {
+  padding: 0 var(--page-gutter) 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.news-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.news-header-copy h2 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin: 0;
+}
+
+.news-all-link {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--accent-deep);
+  text-decoration: none;
+  white-space: nowrap;
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--accent-dash);
+}
+
+.news-all-link:hover,
+.news-all-link:focus-visible {
+  border-bottom-color: var(--accent-deep);
+}
+
+.news-feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.news-card {
+  background: linear-gradient(160deg, var(--panel-top), var(--panel-bottom));
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.news-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.news-date {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+
+.news-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.news-body {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.news-link {
+  margin-top: 4px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-deep);
+  text-decoration: none;
+  align-self: flex-start;
+}
+
+.news-link:hover,
+.news-link:focus-visible {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .news-feed {
+    grid-template-columns: 1fr;
+  }
+
+  .news-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
