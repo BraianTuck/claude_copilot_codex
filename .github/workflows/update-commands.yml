@@ -10,13 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build message body
+        run: node build-message.js
+
       - name: Send daily Telegram message
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           HORA_MVD=$(TZ='America/Montevideo' date +'%Y-%m-%d %H:%M')
-          TEXT=$(printf "🤖 AI Command Atlas\nRecordatorio diario — Novedades de Claude\n\n🔗 linkedin.com/showcase/claude\n🕐 %s (Montevideo)" "$HORA_MVD")
+          if [ -s /tmp/message_body.txt ]; then
+            BODY=$(cat /tmp/message_body.txt)
+            TEXT=$(printf "🤖 AI Command Atlas\nÚltima novedad de Claude\n\n%s\n\n🔗 linkedin.com/showcase/claude\n🕐 %s (Montevideo)" "$BODY" "$HORA_MVD")
+          else
+            TEXT=$(printf "🤖 AI Command Atlas\nRecordatorio diario — Novedades de Claude\n\n🔗 linkedin.com/showcase/claude\n🕐 %s (Montevideo)" "$HORA_MVD")
+          fi
           echo "$TEXT" | jq -Rs "{chat_id: env.TELEGRAM_CHAT_ID, text: .}" | \
             curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
               -H "Content-Type: application/json" \
