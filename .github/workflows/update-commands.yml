@@ -1,14 +1,20 @@
-name: Daily LinkedIn reminder
+name: Content Monitor
 
 on:
   schedule:
-    - cron: '0 11 * * *'  # 8:00 AM Montevideo (UTC-3)
+    - cron: '*/30 * * * *'  # Every 30 min — check YouTube for new videos
+  push:
+    branches: [main]
+    paths: ['script.js']    # Trigger when changelog/content is updated
   workflow_dispatch:
 
-jobs:
-  notify:
-    runs-on: ubuntu-latest
+permissions:
+  contents: write
 
+jobs:
+  check-youtube:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,22 +24,63 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Build message body
-        run: node build-message.js
+      - name: Check YouTube for new videos
+        run: node check-youtube.js
 
-      - name: Send daily Telegram message
+      - name: Send YouTube notification to Telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          HORA_MVD=$(TZ='America/Montevideo' date +'%Y-%m-%d %H:%M')
-          if [ -s /tmp/message_body.txt ]; then
-            BODY=$(cat /tmp/message_body.txt)
-            TEXT=$(printf "🤖 AI Command Atlas\nÚltima novedad de Claude\n\n%s\n\n🔗 linkedin.com/showcase/claude\n🕐 %s (Montevideo)" "$BODY" "$HORA_MVD")
-          else
-            TEXT=$(printf "🤖 AI Command Atlas\nRecordatorio diario — Novedades de Claude\n\n🔗 linkedin.com/showcase/claude\n🕐 %s (Montevideo)" "$HORA_MVD")
+          if [ -s /tmp/youtube_message.txt ]; then
+            cat /tmp/youtube_message.txt | jq -Rs "{chat_id: env.TELEGRAM_CHAT_ID, text: .}" | \
+              curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+                -H "Content-Type: application/json" -d @-
           fi
-          echo "$TEXT" | jq -Rs "{chat_id: env.TELEGRAM_CHAT_ID, text: .}" | \
-            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-              -H "Content-Type: application/json" \
-              -d @-
+
+      - name: Commit state update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+          git add last-seen.json
+          git diff --cached --quiet || git commit -m "chore: update last-seen YouTube state [skip ci]"
+          git push
+
+  notify-linkedin:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check for new changelog entries
+        run: node build-message.js
+
+      - name: Send LinkedIn notification to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -s /tmp/message_body.txt ]; then
+            HORA_MVD=$(TZ='America/Montevideo' date +'%Y-%m-%d %H:%M')
+            BODY=$(cat /tmp/message_body.txt)
+            TEXT=$(printf "🤖 AI Command Atlas\nNueva publicación de Claude\n\n%s\n\n🔗 linkedin.com/showcase/claude\n🕐 %s (Montevideo)" "$BODY" "$HORA_MVD")
+            echo "$TEXT" | jq -Rs "{chat_id: env.TELEGRAM_CHAT_ID, text: .}" | \
+              curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+                -H "Content-Type: application/json" -d @-
+          fi
+
+      - name: Commit state update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+          git add last-seen.json
+          git diff --cached --quiet || git commit -m "chore: update last-seen changelog state [skip ci]"
+          git push
