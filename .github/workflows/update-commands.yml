@@ -8,6 +8,10 @@ on:
     paths: ['script.js']    # Trigger when changelog/content is updated
   workflow_dispatch:
 
+concurrency:
+  group: content-monitor
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -27,6 +31,15 @@ jobs:
       - name: Check YouTube for new videos
         run: node check-youtube.js
 
+      - name: Commit state update BEFORE sending notification
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+          git add last-seen.json
+          git diff --cached --quiet || git commit -m "chore: update last-seen YouTube state [skip ci]"
+          git push
+
       - name: Send YouTube notification to Telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -37,15 +50,6 @@ jobs:
               curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
                 -H "Content-Type: application/json" -d @-
           fi
-
-      - name: Commit state update
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase
-          git add last-seen.json
-          git diff --cached --quiet || git commit -m "chore: update last-seen YouTube state [skip ci]"
-          git push
 
   notify-linkedin:
     if: github.event_name == 'push'
@@ -62,6 +66,15 @@ jobs:
       - name: Check for new changelog entries
         run: node build-message.js
 
+      - name: Commit state update BEFORE sending notification
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+          git add last-seen.json
+          git diff --cached --quiet || git commit -m "chore: update last-seen changelog state [skip ci]"
+          git push
+
       - name: Send LinkedIn notification to Telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -75,12 +88,3 @@ jobs:
               curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
                 -H "Content-Type: application/json" -d @-
           fi
-
-      - name: Commit state update
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase
-          git add last-seen.json
-          git diff --cached --quiet || git commit -m "chore: update last-seen changelog state [skip ci]"
-          git push
