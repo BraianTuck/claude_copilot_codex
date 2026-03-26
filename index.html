@@ -15,11 +15,15 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
   <body>
     <div class="page-shell">
       <header class="hero">
-        <p class="eyebrow">Claude Code, Codex y GitHub Copilot</p>
+        <div class="hero-top-bar">
+          <p class="eyebrow">Claude Code, Codex y GitHub Copilot</p>
+          <button id="auth-btn" class="auth-button">🔔 Suscribirse</button>
+        </div>
         <h1>
           Coding Agent <span>Command Atlas</span>
         </h1>
@@ -84,6 +88,67 @@
       </footer>
     </div>
 
+    <!-- Modal de autenticación -->
+    <div id="auth-modal" class="modal" hidden>
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close">&times;</button>
+        
+        <!-- Vista: Login/Register -->
+        <div id="auth-view" class="modal-view">
+          <h2>🔔 Suscribirse a notificaciones</h2>
+          <p class="modal-subtitle">Recibí alertas de nuevos videos y posts en Telegram</p>
+          
+          <form id="auth-form">
+            <div class="form-group">
+              <label for="auth-email">Email</label>
+              <input type="email" id="auth-email" required placeholder="tu@email.com" />
+            </div>
+            <div class="form-group">
+              <label for="auth-password">Contraseña</label>
+              <input type="password" id="auth-password" required placeholder="Mínimo 6 caracteres" minlength="6" />
+            </div>
+            <div class="form-actions">
+              <button type="submit" id="auth-submit" class="btn-primary">Iniciar sesión</button>
+              <button type="button" id="auth-toggle" class="btn-secondary">¿No tenés cuenta? Registrate</button>
+            </div>
+          </form>
+          <p id="auth-error" class="form-error" hidden></p>
+        </div>
+
+        <!-- Vista: Suscripción -->
+        <div id="subscribe-view" class="modal-view" hidden>
+          <h2>📱 Configurar Telegram</h2>
+          <p class="modal-subtitle">Seguí estos pasos para recibir notificaciones:</p>
+          
+          <ol class="telegram-steps">
+            <li>Abrí <a href="https://t.me/userinfobot" target="_blank">@userinfobot</a> en Telegram</li>
+            <li>Tocá <strong>Start</strong> o enviá cualquier mensaje</li>
+            <li>El bot te responde con tu info. Copiá el número de <strong>Id</strong></li>
+            <li>Pegalo acá abajo:</li>
+          </ol>
+
+          <form id="subscribe-form">
+            <div class="form-group">
+              <label for="telegram-chat-id">Tu Telegram Chat ID</label>
+              <input type="text" id="telegram-chat-id" required placeholder="Ej: 123456789" pattern="[0-9]+" />
+            </div>
+            <div class="checkbox-group">
+              <label><input type="checkbox" id="notify-youtube" checked /> 🎬 Videos de YouTube</label>
+              <label><input type="checkbox" id="notify-linkedin" checked /> 📝 Posts de LinkedIn</label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Guardar suscripción</button>
+              <button type="button" id="auth-logout" class="btn-secondary">Cerrar sesión</button>
+            </div>
+          </form>
+          <p id="subscribe-error" class="form-error" hidden></p>
+          <p id="subscribe-success" class="form-success" hidden>✅ ¡Suscripción guardada!</p>
+        </div>
+      </div>
+    </div>
+
     <script src="./script.js"></script>
+    <script src="./auth.js"></script>
   </body>
 </html>

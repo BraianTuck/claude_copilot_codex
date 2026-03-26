@@ -4,6 +4,7 @@ import { dirname, join } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const STATE_PATH = join(__dirname, 'last-seen.json');
+const SCRIPT_PATH = join(__dirname, 'script.js');
 
 // Both official channels
 const CHANNELS = [
@@ -39,10 +40,51 @@ function saveState(state) {
   writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n');
 }
 
+function addToChangelog(video, channelLabel) {
+  const src = readFileSync(SCRIPT_PATH, 'utf8');
+  const date = video.published.slice(0, 10); // YYYY-MM-DD
+  const title = `🎬 ${video.title}`;
+  const body = video.description.length > 200
+    ? video.description.slice(0, 200) + '...'
+    : video.description;
+  const url = `https://www.youtube.com/watch?v=${video.videoId}`;
+
+  // Find the changelog array and insert new entry
+  const marker = 'const changelog = [';
+  const idx = src.indexOf(marker);
+  if (idx === -1) {
+    console.log('  Could not find changelog in script.js');
+    return false;
+  }
+
+  // Find the first entry line (after the comment)
+  const afterMarker = src.slice(idx + marker.length);
+  const firstEntryMatch = afterMarker.match(/\n(\s*)\{/);
+  if (!firstEntryMatch) {
+    console.log('  Could not find first changelog entry');
+    return false;
+  }
+
+  const indent = firstEntryMatch[1];
+  const insertPos = idx + marker.length + firstEntryMatch.index + 1;
+
+  // Escape quotes in title and body for JS string
+  const escTitle = title.replace(/"/g, '\\"');
+  const escBody = body.replace(/"/g, '\\"').replace(/\n/g, ' ');
+
+  const newEntry = `${indent}{ date: "${date}", entries: [{ tool: "claude", title: "${escTitle}", body: "${escBody}", url: "${url}" }] },\n`;
+
+  const newSrc = src.slice(0, insertPos) + newEntry + src.slice(insertPos);
+  writeFileSync(SCRIPT_PATH, newSrc);
+  console.log(`  Added to changelog: ${title}`);
+  return true;
+}
+
 async function main() {
   const state = loadState();
   if (!state.youtube || typeof state.youtube !== 'object') state.youtube = {};
   const messages = [];
+  let changelogUpdated = false;
 
   for (const ch of CHANNELS) {
     console.log(`Checking ${ch.label} (${ch.id})...`);
@@ -82,10 +124,18 @@ async function main() {
       `🔗 https://www.youtube.com/watch?v=${latest.videoId}`,
     ].join('\n'));
 
+    // Add to changelog
+    if (addToChangelog(latest, ch.label)) {
+      changelogUpdated = true;
+    }
+
     state.youtube[ch.id] = latest.videoId;
   }
 
   saveState(state);
+
+  // Write flag for workflow to know if changelog was updated
+  writeFileSync('/tmp/changelog_updated.txt', changelogUpdated ? 'yes' : '');
 
   if (messages.length) {
     const hora = new Date().toLocaleString('sv-SE', { timeZone: 'America/Montevideo' });
@@ -99,5 +149,6 @@ async function main() {
 main().catch((err) => {
   console.error('Error:', err.message);
   writeFileSync('/tmp/youtube_message.txt', '');
+  writeFileSync('/tmp/changelog_updated.txt', '');
   process.exit(0);
 });

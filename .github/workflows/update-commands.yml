@@ -36,19 +36,43 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add last-seen.json
+          if [ -s /tmp/changelog_updated.txt ]; then
+            git add script.js
+          fi
           git diff --cached --quiet || git commit -m "chore: update last-seen YouTube state [skip ci]"
           git pull --rebase
           git push
 
-      - name: Send YouTube notification to Telegram
+      - name: Send YouTube notification to Telegram subscribers
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
           if [ -s /tmp/youtube_message.txt ]; then
-            cat /tmp/youtube_message.txt | jq -Rs "{chat_id: env.TELEGRAM_CHAT_ID, text: .}" | \
+            MESSAGE=$(cat /tmp/youtube_message.txt)
+            
+            # Send to main chat (backward compatibility)
+            echo "$MESSAGE" | jq -Rs "{chat_id: env.TELEGRAM_CHAT_ID, text: .}" | \
               curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
                 -H "Content-Type: application/json" -d @-
+            
+            # Send to all YouTube subscribers from Supabase
+            if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_SERVICE_KEY" ]; then
+              SUBSCRIBERS=$(curl -s "${SUPABASE_URL}/rest/v1/subscriptions?notify_youtube=eq.true&select=telegram_chat_id" \
+                -H "apikey: ${SUPABASE_SERVICE_KEY}" \
+                -H "Authorization: Bearer ${SUPABASE_SERVICE_KEY}")
+              
+              echo "$SUBSCRIBERS" | jq -r '.[].telegram_chat_id' | while read CHAT_ID; do
+                if [ -n "$CHAT_ID" ] && [ "$CHAT_ID" != "$TELEGRAM_CHAT_ID" ]; then
+                  echo "$MESSAGE" | jq -Rs "{chat_id: \"$CHAT_ID\", text: .}" | \
+                    curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+                      -H "Content-Type: application/json" -d @-
+                  sleep 0.1
+                fi
+              done
+            fi
           fi
 
   notify-linkedin:
@@ -75,16 +99,36 @@ jobs:
           git pull --rebase
           git push
 
-      - name: Send LinkedIn notification to Telegram
+      - name: Send LinkedIn notification to Telegram subscribers
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
           if [ -s /tmp/message_body.txt ]; then
             HORA_MVD=$(TZ='America/Montevideo' date +'%Y-%m-%d %H:%M')
             BODY=$(cat /tmp/message_body.txt)
-            TEXT=$(printf "🤖 AI Command Atlas\nNueva publicación de Claude\n\n%s\n\n🔗 linkedin.com/showcase/claude\n🕐 %s (Montevideo)" "$BODY" "$HORA_MVD")
-            echo "$TEXT" | jq -Rs "{chat_id: env.TELEGRAM_CHAT_ID, text: .}" | \
+            MESSAGE=$(printf "🤖 AI Command Atlas\nNueva publicación de Claude\n\n%s\n\n🔗 linkedin.com/showcase/claude\n🕐 %s (Montevideo)" "$BODY" "$HORA_MVD")
+            
+            # Send to main chat (backward compatibility)
+            echo "$MESSAGE" | jq -Rs "{chat_id: env.TELEGRAM_CHAT_ID, text: .}" | \
               curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
                 -H "Content-Type: application/json" -d @-
+            
+            # Send to all LinkedIn subscribers from Supabase
+            if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_SERVICE_KEY" ]; then
+              SUBSCRIBERS=$(curl -s "${SUPABASE_URL}/rest/v1/subscriptions?notify_linkedin=eq.true&select=telegram_chat_id" \
+                -H "apikey: ${SUPABASE_SERVICE_KEY}" \
+                -H "Authorization: Bearer ${SUPABASE_SERVICE_KEY}")
+              
+              echo "$SUBSCRIBERS" | jq -r '.[].telegram_chat_id' | while read CHAT_ID; do
+                if [ -n "$CHAT_ID" ] && [ "$CHAT_ID" != "$TELEGRAM_CHAT_ID" ]; then
+                  echo "$MESSAGE" | jq -Rs "{chat_id: \"$CHAT_ID\", text: .}" | \
+                    curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+                      -H "Content-Type: application/json" -d @-
+                  sleep 0.1
+                fi
+              done
+            fi
           fi
