@@ -118,20 +118,24 @@
 
         <!-- Vista: Suscripción -->
         <div id="subscribe-view" class="modal-view" hidden>
-          <h2>📱 Configurar Telegram</h2>
-          <p class="modal-subtitle">Seguí estos pasos para recibir notificaciones:</p>
+          <h2>📱 Conectar Telegram</h2>
+          <p class="modal-subtitle">Solo lleva 30 segundos:</p>
           
-          <ol class="telegram-steps">
-            <li>Abrí <a href="https://t.me/ClaudeAtlasNotifyBot" target="_blank">@ClaudeAtlasNotifyBot</a> en Telegram</li>
-            <li>Tocá <strong>Start</strong></li>
-            <li>El bot te responde con tu <strong>Chat ID</strong></li>
-            <li>Copialo y pegalo acá:</li>
-          </ol>
+          <div class="telegram-step-card">
+            <a href="https://t.me/ClaudeAtlasNotifyBot" target="_blank" class="telegram-bot-link">
+              <span class="telegram-icon">🤖</span>
+              <span class="telegram-link-text">
+                <strong>Abrir @ClaudeAtlasNotifyBot</strong>
+                <small>Tocá Start para obtener tu Chat ID</small>
+              </span>
+              <span class="telegram-arrow">→</span>
+            </a>
+          </div>
 
           <form id="subscribe-form">
             <div class="form-group">
-              <label for="telegram-chat-id">Tu Telegram Chat ID</label>
-              <input type="text" id="telegram-chat-id" required placeholder="Ej: 123456789" pattern="[0-9]+" />
+              <label for="telegram-chat-id">Pegá tu Chat ID acá</label>
+              <input type="text" id="telegram-chat-id" required placeholder="El número que te dio el bot" pattern="[0-9]+" />
             </div>
             <div class="checkbox-group">
               <label><input type="checkbox" id="notify-youtube" checked /> 🎬 Videos de YouTube</label>
@@ -143,7 +147,7 @@
             </div>
           </form>
           <p id="subscribe-error" class="form-error" hidden></p>
-          <p id="subscribe-success" class="form-success" hidden>✅ ¡Suscripción guardada!</p>
+          <p id="subscribe-success" class="form-success" hidden>✅ ¡Listo! Te llegó un mensaje de confirmación a Telegram.</p>
         </div>
       </div>
     </div>
