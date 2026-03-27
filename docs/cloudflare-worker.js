@@ -1,11 +1,11 @@
 // Cloudflare Worker para bot de Telegram
-// Responde automáticamente con el Chat ID del usuario
-
-const BOT_TOKEN = '8337214917:AAGy0B95qQItjRvEP55TC7kqq6IYH3AvMAA';
-const SITE_URL = 'https://braiantuck.github.io/claude_copilot_codex/';
+// El BOT_TOKEN se configura en Cloudflare Dashboard > Worker > Settings > Variables (como Secret)
 
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
+    const BOT_TOKEN = env.BOT_TOKEN;
+    const SITE_URL = 'https://braiantuck.github.io/claude_copilot_codex/';
+
     if (request.method !== 'POST') {
       return new Response('Bot activo', { status: 200 });
     }
@@ -13,51 +13,22 @@ export default {
     try {
       const update = await request.json();
       const message = update.message;
-
-      if (!message || !message.chat) {
-        return new Response('OK', { status: 200 });
-      }
+      if (!message || !message.chat) return new Response('OK');
 
       const chatId = message.chat.id;
       const firstName = message.from?.first_name || 'Usuario';
-      const text = message.text || '';
 
-      let responseText;
+      const responseText = `¡Hola ${firstName}! 👋\n\n🔑 Tu Chat ID es:\n\n${chatId}\n\n📋 Copiá ese número y pegalo en la web:\n${SITE_URL}`;
 
-      if (text === '/start' || text === '/id') {
-        responseText = `¡Hola ${firstName}! 👋
-
-🔑 Tu Chat ID es:
-
-\`${chatId}\`
-
-📋 Copiá ese número y pegalo en la web para recibir notificaciones de:
-
-🎬 Nuevos videos de YouTube
-📝 Posts de LinkedIn
-
-🔗 ${SITE_URL}`;
-      } else {
-        responseText = `Tu Chat ID es: \`${chatId}\`
-
-Copialo y pegalo en la web: ${SITE_URL}`;
-      }
-
-      // Enviar respuesta
       await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: responseText,
-          parse_mode: 'Markdown',
-        }),
+        body: JSON.stringify({ chat_id: chatId, text: responseText }),
       });
 
-      return new Response('OK', { status: 200 });
+      return new Response('OK');
     } catch (err) {
-      console.error('Error:', err);
-      return new Response('OK', { status: 200 });
+      return new Response('OK');
     }
   },
 };
