@@ -247,6 +247,13 @@ async function handleSubscribe(e) {
 
     if (error) throw error;
 
+    // Enviar mensaje de confirmación a Telegram
+    await fetch('https://telegram-bot.braiantuck.workers.dev/confirm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId }),
+    }).catch(() => {}); // Ignorar errores del mensaje
+
     subscribeSuccess.hidden = false;
     setTimeout(() => {
       subscribeSuccess.hidden = true;
