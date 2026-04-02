@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-04-02", entries: [{ tool: "claude", title: "🎬 We scanned Claude to look for emotions", body: "AI models sometimes act like they have emotions—why?   We studied one of our recent models and found that it draws on emotion concepts learned from text to inhabit its role as Claude, the AI assistant...", url: "https://www.youtube.com/watch?v=D4XTefP3Lsc" }] },
   { date: "2026-03-21", entries: [{ tool: "claude", title: "Projects now available in Cowork", body: "Projects are now available in Cowork. Keep your tasks and context in one place, focused on one area of work. Files and instructions stay on your computer. Import existing projects in one click, or start fresh.", url: "https://lnkd.in/gZrAJjqb" }] },
 ];
 
