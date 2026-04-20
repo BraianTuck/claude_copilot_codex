@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-04-20", entries: [{ tool: "claude", title: "🎬 How Anthropic uses Claude in Product Engineering", body: "Product engineers lose hours toggling between tools and tackling subtasks one at a time. Software engineer Chuma Kabaghe shows how she uses Claude Code to onboard onto unfamiliar codebases in minutes,...", url: "https://www.youtube.com/watch?v=ma7oe_5h0ag" }] },
   { date: "2026-04-17", entries: [{ tool: "claude", title: "🎬 Introducing Claude Design by Anthropic Labs", body: "Claude Design is a new Anthropic Labs product that lets you collaborate with Claude to create polished visual work like prototypes, slides, one-pagers, and more.", url: "https://www.youtube.com/watch?v=t_LBECIQQqs" }] },
   { date: "2026-04-16", entries: [{ tool: "claude", title: "🎬 Working smarter with Claude in PowerPoint", body: "Part 3 of 3. Learn how to use Claude in PowerPoint to pulling data from other sources and analyze your findings.  Learn more: claude.com/tutorials", url: "https://www.youtube.com/watch?v=gRLMG5YNNTo" }] },
   { date: "2026-04-15", entries: [{ tool: "claude", title: "🎬 Why do AI models hallucinate?", body: "Learn what AI researchers mean when they talk about hallucination in AI models, why it may occur, and tactics you can use to spot this in your conversations.  Learn more: anthropic.com/ai-fluency", url: "https://www.youtube.com/watch?v=005JLRt3gXI" }] },
