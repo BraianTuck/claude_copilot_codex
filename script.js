@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-05-05", entries: [{ tool: "claude", title: "🎬 Building AI-native: Inside the stacks powering Cognition, Gamma, and Harvey", body: "Three teams building AI-native products — Cognition, Gamma, and Harvey — discuss the architectural decisions behind their stacks. The conversation covers multi-agent orchestration, MCP in production, ...", url: "https://www.youtube.com/watch?v=OFDm3T7pVlc" }] },
   { date: "2026-05-05", entries: [{ tool: "claude", title: "🎬 How to get to production faster with Claude Managed Agents", body: "Most of shipping an agent isn't the agent itself — it's the infrastructure around it: state, long-running sessions, orchestration, guardrails. Claude Managed Agents handles that layer. This session co...", url: "https://www.youtube.com/watch?v=E9gaQHrw_rg" }] },
   { date: "2026-05-06", entries: [{ tool: "claude", title: "🎬 Code with Claude Opening Keynote", body: "", url: "https://www.youtube.com/watch?v=GMIWm5y90xA" }] },
   { date: "2026-05-05", entries: [{ tool: "claude", title: "🎬 What is Claude Code?", body: "Claude Code is an agentic coding tool that reads your codebase, edits files, and runs commands directly in your terminal.  This video covers what makes it different from Claude.ai and what it means to...", url: "https://www.youtube.com/watch?v=fl1DSmwQKKY" }] },
