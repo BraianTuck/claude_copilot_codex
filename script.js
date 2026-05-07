@@ -451,6 +451,8 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-05-07", entries: [{ tool: "claude", title: "🎬 Translating Claude’s thoughts into language", body: "AI models like Claude talk in words but think in numbers. These numbers, called activations, encode Claude’s thoughts, but not in a language we can read.  We are introducing Natural Language Autoencod...", url: "https://www.youtube.com/watch?v=j2knrqAzYVY" }] },
+  { date: "2026-05-07", entries: [{ tool: "claude", title: "🎬 Hooks in Claude Code", body: "Hooks give you deterministic control over Claude Code's behavior at key lifecycle events.  Learn how to auto-format after edits, block dangerous operations, and share hooks with your team.  Take the f...", url: "https://www.youtube.com/watch?v=IkaPHiMDazM" }] },
   { date: "2026-05-06", entries: [{ tool: "claude", title: "🎬 Code with Claude 2026: Opening Keynote", body: "", url: "https://www.youtube.com/watch?v=GMIWm5y90xA" }] },
   { date: "2026-05-05", entries: [{ tool: "claude", title: "🎬 The capability curve", body: "Frontier models are getting more capable, fast. Where the curve is going, and what it means for developers building on Claude.", url: "https://www.youtube.com/watch?v=tP4MGcJ80Y0" }] },
   { date: "2026-05-05", entries: [{ tool: "claude", title: "🎬 How Datadog built a universal machine tool for Claude Code", body: "At Datadog, 90% of engineers adopted AI coding tools for production work in the last four months, with Claude Code driving two-thirds of that usage. As sessions grew more ambitious, the reusable tools...", url: "https://www.youtube.com/watch?v=EdmuYPBt_EM" }] },
