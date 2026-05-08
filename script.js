@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-05-08", entries: [{ tool: "claude", title: "🎬 The capability curve", body: "Frontier models are getting more capable, fast. Where the curve is going, and what it means for developers building on Claude.", url: "https://www.youtube.com/watch?v=tP4MGcJ80Y0" }] },
   { date: "2026-05-08", entries: [{ tool: "claude", title: "🎬 Getting Started with Claude Cowork", body: "Learn how to use Claude Cowork to edit your files directly and work in your favorite apps. If it’s on your computer, Claude can find and edit it. Describe what you need done, and Claude does it.   Lea...", url: "https://www.youtube.com/watch?v=Lbml7IuGJYw" }] },
   { date: "2026-05-07", entries: [{ tool: "claude", title: "🎬 Collaborate with Claude across Microsoft365 apps", body: "Claude now works across your open Outlook, Word, Excel, and PowerPoint files in a single continuous session — triaging email, drafting documents, building models, updating slides, and carrying full co...", url: "https://www.youtube.com/watch?v=F6dzjaBCBtU" }] },
   { date: "2026-05-07", entries: [{ tool: "claude", title: "🎬 Translating Claude’s thoughts into language", body: "AI models like Claude talk in words but think in numbers. These numbers, called activations, encode Claude’s thoughts, but not in a language we can read.  We are introducing Natural Language Autoencod...", url: "https://www.youtube.com/watch?v=j2knrqAzYVY" }] },
