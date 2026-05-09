@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-05-09", entries: [{ tool: "claude", title: "🎬 MCP in Claude Code", body: "MCP connects Claude Code to external tools and data sources like Linear, GitHub, and documentation servers.  This video covers adding servers, scoping them for your team, and managing context costs.  ...", url: "https://www.youtube.com/watch?v=kkBFmwkDzdo" }] },
   { date: "2026-05-08", entries: [{ tool: "claude", title: "🎬 The expanding toolkit", body: "Over the last year, capabilities that used to require heavy scaffolding have moved into the model: reliable tool use, context management, writing and running code, computer use, and more. This session...", url: "https://www.youtube.com/watch?v=KLCuxMDZSDg" }] },
   { date: "2026-05-08", entries: [{ tool: "claude", title: "🎬 The capability curve", body: "Frontier models are getting more capable, fast. Where the curve is going, and what it means for developers building on Claude.", url: "https://www.youtube.com/watch?v=tP4MGcJ80Y0" }] },
   { date: "2026-05-08", entries: [{ tool: "claude", title: "🎬 Getting Started with Claude Cowork", body: "Learn how to use Claude Cowork to edit your files directly and work in your favorite apps. If it’s on your computer, Claude can find and edit it. Describe what you need done, and Claude does it.   Lea...", url: "https://www.youtube.com/watch?v=Lbml7IuGJYw" }] },
