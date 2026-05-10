@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-05-10", entries: [{ tool: "claude", title: "🎬 The CLAUDE.md file", body: "Give Claude Code persistent memory about your project with a simple Markdown file called the: &quot;CLAUDE.md&quot;  In this video, we cover what to put in your CLAUDE.md file, how the file hierarchy ...", url: "https://www.youtube.com/watch?v=O0FGCxkHM-U" }] },
   { date: "2026-05-09", entries: [{ tool: "claude", title: "🎬 Claude FM 🎵 music for thinking and building", body: "Press play and keep thinking. Made and curated by musicians.", url: "https://www.youtube.com/watch?v=YmQ7jRgf4f0" }] },
   { date: "2026-05-09", entries: [{ tool: "claude", title: "🎬 MCP in Claude Code", body: "MCP connects Claude Code to external tools and data sources like Linear, GitHub, and documentation servers.  This video covers adding servers, scoping them for your team, and managing context costs.  ...", url: "https://www.youtube.com/watch?v=kkBFmwkDzdo" }] },
   { date: "2026-05-08", entries: [{ tool: "claude", title: "🎬 The expanding toolkit", body: "Over the last year, capabilities that used to require heavy scaffolding have moved into the model: reliable tool use, context management, writing and running code, computer use, and more. This session...", url: "https://www.youtube.com/watch?v=KLCuxMDZSDg" }] },
