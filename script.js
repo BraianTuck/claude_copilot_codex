@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-05-12", entries: [{ tool: "claude", title: "🎬 How Anthropic uses Claude in Cybersecurity", body: "Security teams drown in alerts, jumping between tools and query languages for every investigation. Jackie Bow, Technical Lead on Anthropic's Detection Platform Engineering team, shares how her team us...", url: "https://www.youtube.com/watch?v=FPPTnI88RR8" }] },
   { date: "2026-05-11", entries: [{ tool: "claude", title: "🎬 Introducing agent view in Claude Code", body: "Agent view in Claude Code provides one place to manage all your Claude Code sessions. Available as a research preview on Pro, Max, Team, Enterprise, and Claude API plans.  Read more in our documentati...", url: "https://www.youtube.com/watch?v=-INveHwbRz4" }] },
   { date: "2026-05-10", entries: [{ tool: "claude", title: "🎬 The CLAUDE.md file", body: "Give Claude Code persistent memory about your project with a simple Markdown file called the: &quot;CLAUDE.md&quot;  In this video, we cover what to put in your CLAUDE.md file, how the file hierarchy ...", url: "https://www.youtube.com/watch?v=O0FGCxkHM-U" }] },
   { date: "2026-05-09", entries: [{ tool: "claude", title: "🎬 Claude FM 🎵 music for thinking and building", body: "Press play and keep thinking. Made and curated by musicians.", url: "https://www.youtube.com/watch?v=YmQ7jRgf4f0" }] },
