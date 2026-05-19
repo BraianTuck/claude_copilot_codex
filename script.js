@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-05-19", entries: [{ tool: "claude", title: "🎬 Code with Claude London 2026: Opening Keynote", body: "Get the latest updates from Anthropic's engineering and product leaders at the Code with Claude 2026 opening keynote in London.", url: "https://www.youtube.com/watch?v=6amLO7I9xdg" }] },
   { date: "2026-05-19", entries: [{ tool: "claude", title: "🎬 The Problem Solvers: Scott Wu at Cognition", body: "Scott Wu was world champion of competitive programming at 17. For years he wondered whether AI would do what he could. Now he runs Cognition, the team behind the first AI software engineer. When they ...", url: "https://www.youtube.com/watch?v=_kSAptN8TAY" }] },
   { date: "2026-05-18", entries: [{ tool: "claude", title: "🎬 Code with Claude 2026 | London", body: "Pull up a chair and watch the main stage live from Code with Claude London. We're discussing what's new with our models and the platform, and then Claude Code takes center stage. After that, listen as...", url: "https://www.youtube.com/watch?v=AgQ4cwL5eOM" }] },
   { date: "2026-05-18", entries: [{ tool: "claude", title: "🎬 Claude Cowork for legal teams", body: "Legal teams are being asked to do more with less. A big part of the job is coming up to speed fast: a question lands about a feature that launched months ago, and the context you had when you wrote th...", url: "https://www.youtube.com/watch?v=EPUg9pmfPk0" }] },
