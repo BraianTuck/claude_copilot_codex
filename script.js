@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-05-22", entries: [{ tool: "claude", title: "🎬 The prompting playbook", body: "How to apply core prompting principles to agentic systems that plan, act, and adapt.", url: "https://www.youtube.com/watch?v=G2B0YWuJUgI" }] },
   { date: "2026-05-22", entries: [{ tool: "claude", title: "🎬 The capability curve", body: "Frontier models are getting more capable, fast. Where the curve is going, and what it means for developers building on Claude.", url: "https://www.youtube.com/watch?v=DNRddIEoH3c" }] },
   { date: "2026-05-21", entries: [{ tool: "claude", title: "🎬 Building the best agentic analytics harness: Powered by Claude, built with Claude Code", body: "Omni built the best agentic harness for analytics tailored for and powered by Claude models, with 99% of the platform's code written using Claude Code. Cofounder &amp; CTO Chris Merrick shows how they...", url: "https://www.youtube.com/watch?v=K4-flzsPraE" }] },
   { date: "2026-05-21", entries: [{ tool: "claude", title: "🎬 Building with Claude on Google Cloud", body: "A live build from zero to deployed in thirty minutes. We'll build a feedback app spanning five roles and the full software lifecycle, using Claude and Google Cloud alongside subagents, MCP servers, an...", url: "https://www.youtube.com/watch?v=l8fxVYIP4HQ" }] },
