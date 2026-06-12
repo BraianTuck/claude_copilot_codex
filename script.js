@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-05-09", entries: [{ tool: "claude", title: "🎬 Claude FM 🎵 music for thinking and building", body: "Press play and keep thinking. Made and curated by musicians.", url: "https://www.youtube.com/watch?v=Dp5zx9rD-Qc" }] },
   { date: "2026-06-12", entries: [{ tool: "claude", title: "🎬 Code with Claude Tokyo 2026: Opening Keynote", body: "", url: "https://www.youtube.com/watch?v=N4efO8viXXo" }] },
   { date: "2026-06-10", entries: [{ tool: "claude", title: "🎬 The Problem Solvers | Michael Truell at Cursor", body: "Michael Truell started coding at 12 and fell in love with building without barriers. He's been chasing that feeling ever since, and Cursor exists to give it to everyone who writes code. The AI-native ...", url: "https://www.youtube.com/watch?v=8NVZMRyCrn4" }] },
   { date: "2026-06-09", entries: [{ tool: "claude", title: "🎬 Claude Fable 5 beats Pokémon FireRed only using vision", body: "A timelapse of Claude playing Pokémon FireRed from start to finish using only raw game screenshots — with no maps, navigation aids, or extra game-state information. Earlier Claude models needed a comp...", url: "https://www.youtube.com/watch?v=Ty_50J84fMY" }] },
