@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-06-16", entries: [{ tool: "claude", title: "🎬 The Briefing: Financial Services", body: "Some of the world's largest banks are now running Claude across their organizations. Last month, the leaders behind that work joined us for The Briefing: Financial Services to share what they've built...", url: "https://www.youtube.com/watch?v=H3XQeGNia8o" }] },
   { date: "2026-06-12", entries: [{ tool: "claude", title: "🎬 Claude FM 🎵 music for thinking and building", body: "Press play and keep thinking. Made and curated by musicians.", url: "https://www.youtube.com/watch?v=tRsQsTMvPNg" }] },
   { date: "2026-05-09", entries: [{ tool: "claude", title: "🎬 Claude FM 🎵 music for thinking and building", body: "Press play and keep thinking. Made and curated by musicians.", url: "https://www.youtube.com/watch?v=Dp5zx9rD-Qc" }] },
   { date: "2026-06-12", entries: [{ tool: "claude", title: "🎬 Code with Claude Tokyo 2026: Opening Keynote", body: "", url: "https://www.youtube.com/watch?v=N4efO8viXXo" }] },
