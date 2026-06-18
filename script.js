@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-06-18", entries: [{ tool: "claude", title: "🎬 Artifacts in Claude Code: share your work as it happens", body: "With Artifacts in Claude Code, Claude turns raw output — data, mockups, a wall of JSON — into a clear visual page you can share with your team. Generate an artifact in any session so anyone on your te...", url: "https://www.youtube.com/watch?v=m7TJqx8CYG8" }] },
   { date: "2026-06-18", entries: [{ tool: "claude", title: "🎬 Enterprise-managed auth for MCP connectors", body: "Admins can now authorize and authenticate MCP connectors for their whole organization through their identity provider — no individual set-up required. See it in action, from admin setup to an employee...", url: "https://www.youtube.com/watch?v=5kTDt9ewTwE" }] },
   { date: "2026-06-16", entries: [{ tool: "claude", title: "🎬 The Briefing: Financial Services", body: "Some of the world's largest banks are now running Claude across their organizations. Last month, the leaders behind that work joined us for The Briefing: Financial Services to share what they've built...", url: "https://www.youtube.com/watch?v=H3XQeGNia8o" }] },
   { date: "2026-06-12", entries: [{ tool: "claude", title: "🎬 Claude FM 🎵 music for thinking and building", body: "Press play and keep thinking. Made and curated by musicians.", url: "https://www.youtube.com/watch?v=tRsQsTMvPNg" }] },
