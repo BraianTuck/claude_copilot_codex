@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-07-23", entries: [{ tool: "claude", title: "🎬 Why does AI hallucinate?", body: "Ask an AI for a specific statistic and it might just invent one. These errors are called hallucinations and are the result of an AI trying hard to be helpful when it doesn’t know the answer.", url: "https://www.youtube.com/watch?v=RlQ4xpDnoaw" }] },
   { date: "2026-07-22", entries: [{ tool: "claude", title: "🎬 How does AI get its character?", body: "AI models are grown, not built. They learn their behaviors from human text, which are then shaped further through curated examples during the fine-tuning process.", url: "https://www.youtube.com/watch?v=ni4SXBnah2I" }] },
   { date: "2026-07-21", entries: [{ tool: "claude", title: "🎬 What is sycophancy?", body: "A model that always agrees with you isn’t a helpful model. See why sycophancy matters, how you can spot it when chatting with AI, and what we’re doing to reduce its presence in our models.", url: "https://www.youtube.com/watch?v=0KCTELWXYPw" }] },
   { date: "2026-07-16", entries: [{ tool: "claude", title: "🎬 Making New York City miniature with Claude", body: "Danny Cortes makes miniatures of the New York City details most people walk right past: bodegas, mailboxes, dumpsters, storefronts. To him, every rusted corner and faded sign is worth preserving. With...", url: "https://www.youtube.com/watch?v=ub8jjpVDLIQ" }] },
