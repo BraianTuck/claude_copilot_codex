@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-07-24", entries: [{ tool: "claude", title: "🎬 What do AI models actually know?", body: "AI models don't know everything. Their training gives them remarkable depth in some areas, and creates blind spots in others. Here's how to tell the difference.", url: "https://www.youtube.com/watch?v=Ua_5vH_n8j4" }] },
   { date: "2026-07-23", entries: [{ tool: "claude", title: "🎬 Why does AI hallucinate?", body: "Ask an AI for a specific statistic and it might just invent one. These errors are called hallucinations and are the result of an AI trying hard to be helpful when it doesn’t know the answer.", url: "https://www.youtube.com/watch?v=RlQ4xpDnoaw" }] },
   { date: "2026-07-22", entries: [{ tool: "claude", title: "🎬 How does AI get its character?", body: "AI models are grown, not built. They learn their behaviors from human text, which are then shaped further through curated examples during the fine-tuning process.", url: "https://www.youtube.com/watch?v=ni4SXBnah2I" }] },
   { date: "2026-07-21", entries: [{ tool: "claude", title: "🎬 What is sycophancy?", body: "A model that always agrees with you isn’t a helpful model. See why sycophancy matters, how you can spot it when chatting with AI, and what we’re doing to reduce its presence in our models.", url: "https://www.youtube.com/watch?v=0KCTELWXYPw" }] },
