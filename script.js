@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-08-04", entries: [{ tool: "claude", title: "🎬 How auto mode works with Claude Code", body: "Auto mode lets Claude Code complete long-running work with fewer interruptions, with a separate classifier screening each action instead of you. This video covers how the classifier works, why Claude ...", url: "https://www.youtube.com/watch?v=b8SV4U6fEIc" }] },
   { date: "2026-08-03", entries: [{ tool: "claude", title: "🎬 Record A Skill With Claude", body: "Some tasks you only need to do once. There's now a Record a skill option in the + menu in Claude Cowork.", url: "https://www.youtube.com/watch?v=jrfB3VY-wDo" }] },
   { date: "2026-07-24", entries: [{ tool: "claude", title: "🎬 What do AI models actually know?", body: "AI models don't know everything. Their training gives them remarkable depth in some areas, and creates blind spots in others. Here's how to tell the difference.", url: "https://www.youtube.com/watch?v=Ua_5vH_n8j4" }] },
   { date: "2026-07-23", entries: [{ tool: "claude", title: "🎬 Why does AI hallucinate?", body: "Ask an AI for a specific statistic and it might just invent one. These errors are called hallucinations and are the result of an AI trying hard to be helpful when it doesn’t know the answer.", url: "https://www.youtube.com/watch?v=RlQ4xpDnoaw" }] },
