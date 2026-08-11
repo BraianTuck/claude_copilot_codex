@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-08-11", entries: [{ tool: "claude", title: "🎬 Claude FM 🎵 music for thinking and building", body: "Press play and keep thinking. Made and curated by musicians.", url: "https://www.youtube.com/watch?v=mYPF7KARk5Q" }] },
   { date: "2026-08-11", entries: [{ tool: "claude", title: "🎬 Can you trust what AI tells you?", body: "How much you can trust an AI depends on what you’re asking. Kyra from the Anthropic education team breaks down the two most common reasons for an AI to be confidently wrong: hallucination and sycophan...", url: "https://www.youtube.com/watch?v=O0Bf2A4Z6O0" }] },
   { date: "2026-08-11", entries: [{ tool: "claude", title: "🎬 Can you trust what AI tells you?", body: "How much you can trust an AI depends on what you’re asking. Kyra from the Anthropic education team breaks down the two most common reasons for an AI to be confidently wrong: hallucination and sycophan...", url: "https://www.youtube.com/watch?v=cIMlBw2nqfA" }] },
   { date: "2026-08-10", entries: [{ tool: "claude", title: "🎬 Dispatches from Iceland", body: "In late 2025, Iceland’s government launched one of the world’s first national AI education pilots, giving teachers who volunteered access to AI tools.  We visited Iceland to find out how people are th...", url: "https://www.youtube.com/watch?v=iF5IWjOWcA4" }] },
