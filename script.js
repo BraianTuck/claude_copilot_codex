@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-08-12", entries: [{ tool: "claude", title: "🎬 Claude Cowork is now your Chrome side panel", body: "Claude sees the page you're already signed in to and works on it: it reads, clicks, types, and fills forms. Your skills, plugins, and connectors work in the browser for the first time. Every conversat...", url: "https://www.youtube.com/watch?v=C-5wF6tkQ2Q" }] },
   { date: "2026-08-11", entries: [{ tool: "claude", title: "🎬 Claude FM 🎵 music for thinking and building", body: "Press play and keep thinking. Made and curated by musicians.", url: "https://www.youtube.com/watch?v=mYPF7KARk5Q" }] },
   { date: "2026-08-11", entries: [{ tool: "claude", title: "🎬 Can you trust what AI tells you?", body: "How much you can trust an AI depends on what you’re asking. Kyra from the Anthropic education team breaks down the two most common reasons for an AI to be confidently wrong: hallucination and sycophan...", url: "https://www.youtube.com/watch?v=O0Bf2A4Z6O0" }] },
   { date: "2026-08-11", entries: [{ tool: "claude", title: "🎬 Can you trust what AI tells you?", body: "How much you can trust an AI depends on what you’re asking. Kyra from the Anthropic education team breaks down the two most common reasons for an AI to be confidently wrong: hallucination and sycophan...", url: "https://www.youtube.com/watch?v=cIMlBw2nqfA" }] },
