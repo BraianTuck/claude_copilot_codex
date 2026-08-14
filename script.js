@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-08-14", entries: [{ tool: "claude", title: "🎬 What does AI actually know about you?", body: "The information you share with AI only travels as far as you let it. Zoe from the Anthropic education team explains what happens to your information when you chat with an AI, how long it stays there, ...", url: "https://www.youtube.com/watch?v=V12aLcjX23Q" }] },
   { date: "2026-08-13", entries: [{ tool: "claude", title: "🎬 What does AI actually know about you?", body: "The information you share with AI only travels as far as you let it. Zoe from the Anthropic education team explains what happens to your information when you chat with an AI, how long it stays there, ...", url: "https://www.youtube.com/watch?v=ANDl5Tkru7g" }] },
   { date: "2026-08-12", entries: [{ tool: "claude", title: "🎬 Claude Cowork is now your Chrome side panel", body: "Claude sees the page you're already signed in to and works on it: it reads, clicks, types, and fills forms. Your skills, plugins, and connectors work in the browser for the first time. Every conversat...", url: "https://www.youtube.com/watch?v=C-5wF6tkQ2Q" }] },
   { date: "2026-08-11", entries: [{ tool: "claude", title: "🎬 Claude FM 🎵 music for thinking and building", body: "Press play and keep thinking. Made and curated by musicians.", url: "https://www.youtube.com/watch?v=mYPF7KARk5Q" }] },
