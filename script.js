@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-09-08", entries: [{ tool: "claude", title: "🎬 How founders build on Claude Managed Agents", body: "We sat down with three founders to chat about what they learned building and scaling agents with Claude Managed Agents. Wispr shipped the first version of their meeting assistant in a day and scaled i...", url: "https://www.youtube.com/watch?v=hm8NzEd5io0" }] },
   { date: "2026-09-08", entries: [{ tool: "claude", title: "🎬 Anthropic engineers on what Claude changed for them", body: "Three Anthropic engineers on how coding with Claude changes the job. What gets faster, what they miss, and where their attention goes now.", url: "https://www.youtube.com/watch?v=jRPn3iG_e5g" }] },
   { date: "2026-09-02", entries: [{ tool: "claude", title: "🎬 How the Claude Code team uses Claude Code", body: "A year ago, using Claude Code meant prompting, giving feedback, and accepting permission prompts. What does it look like now? Thariq Shihipar, Sid Bidasaria, and Robert Boyce on the Claude Code team s...", url: "https://www.youtube.com/watch?v=S-sYlFiGFv8" }] },
   { date: "2026-09-01", entries: [{ tool: "claude", title: "🎬 Meet Claude Fable 5.1", body: "Claude Fable 5.1 is the latest upgrade to our most capable class of models. It excels at complex, long-running tasks, and its research capabilities offer an early glimpse of how AI will contribute to ...", url: "https://www.youtube.com/watch?v=uVS88gnaxcg" }] },
