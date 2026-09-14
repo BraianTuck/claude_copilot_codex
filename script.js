@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-09-14", entries: [{ tool: "claude", title: "🎬 How data retention works when using Claude", body: "Starting with Claude Fable 5, the last thirty days of prompts and Claude’s outputs are stored for safety monitoring. Learn why this window exists, who can read it, and what Enterprise Frontier Safegua...", url: "https://www.youtube.com/watch?v=PQGxYvkMobQ" }] },
   { date: "2026-09-09", entries: [{ tool: "claude", title: "🎬 Why Claude works better inside Slack", body: "Anthropic engineers on why Claude Tag makes better decisions with more context.", url: "https://www.youtube.com/watch?v=wcBoFbvFxmc" }] },
   { date: "2026-09-08", entries: [{ tool: "claude", title: "🎬 How founders build on Claude Managed Agents", body: "We sat down with three founders to chat about what they learned building and scaling agents with Claude Managed Agents. Wispr shipped the first version of their meeting assistant in a day and scaled i...", url: "https://www.youtube.com/watch?v=hm8NzEd5io0" }] },
   { date: "2026-09-08", entries: [{ tool: "claude", title: "🎬 Anthropic engineers on what Claude changed for them", body: "Three Anthropic engineers on how coding with Claude changes the job. What gets faster, what they miss, and where their attention goes now.", url: "https://www.youtube.com/watch?v=jRPn3iG_e5g" }] },
