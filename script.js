@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-09-15", entries: [{ tool: "claude", title: "🎬 Frontier Day | Claude for startups", body: "Hear from founders attending Frontier Day on what it’s like building a startup with Claude. Caitlin Colgrove of Hex, Jacob of Spawn, Sherwood of Sazabi and Tianwei of Phylo talk about taking on projec...", url: "https://www.youtube.com/watch?v=LQkcGtkSLNQ" }] },
   { date: "2026-09-15", entries: [{ tool: "claude", title: "🎬 Salesforce in Claude", body: "Salesforce in Claude is a plugin built with Salesforce that brings a seller's accounts, opportunities, and pipeline into Claude, with 37 sales skills for the work account executives do daily. Prep a c...", url: "https://www.youtube.com/watch?v=t6z0Ea0GwSk" }] },
   { date: "2026-09-14", entries: [{ tool: "claude", title: "🎬 How data retention works when using Claude", body: "Starting with Claude Fable 5, the last thirty days of prompts and Claude’s outputs are stored for safety monitoring. Learn why this window exists, who can read it, and what Enterprise Frontier Safegua...", url: "https://www.youtube.com/watch?v=PQGxYvkMobQ" }] },
   { date: "2026-09-09", entries: [{ tool: "claude", title: "🎬 Why Claude works better inside Slack", body: "Anthropic engineers on why Claude Tag makes better decisions with more context.", url: "https://www.youtube.com/watch?v=wcBoFbvFxmc" }] },
