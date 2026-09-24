@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-09-24", entries: [{ tool: "claude", title: "🎬 How AI is being used in humanitarian work", body: "A look at the International Rescue Committee's fight against child malnutrition in Nigeria and how Claude could help this work.", url: "https://www.youtube.com/watch?v=oZgcAsfvS_g" }] },
   { date: "2026-09-23", entries: [{ tool: "claude", title: "🎬 Inside Anthropic's molecular biology lab", body: "Some of the biggest discoveries in biology started with someone noticing something strange in one of the many molecular machines found in nature. We’re introducing a new molecular biology research gro...", url: "https://www.youtube.com/watch?v=DdCEmlAydcw" }] },
   { date: "2026-09-23", entries: [{ tool: "claude", title: "🎬 Using Claude Opus 5.5 as your daily driver", body: "Opus 5.5 is faster than Opus 5, better at telling you what it did, and 20% cheaper per token. On Pro, Max, and Team plans your limits go 25% further. This is what that looks like in daily Claude Code ...", url: "https://www.youtube.com/watch?v=jKRl_CSVxyI" }] },
   { date: "2026-09-22", entries: [{ tool: "claude", title: "🎬 Meet Claude Opus 5.5", body: "For most tasks, Claude Opus 5.5 performs at the level of Claude Fable 5.1, our most intelligent model. It writes more clearly and puts the most important information first, which makes it easier to wo...", url: "https://www.youtube.com/watch?v=FcK--rzZfpA" }] },
