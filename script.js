@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-09-24", entries: [{ tool: "claude", title: "🎬 Patrick Collison on Claude Code at Stripe", body: "Stripe CEO Patrick Collison joined Boris to talk about how Stripe builds with Claude Code.  Stripe runs its core APIs at five and a half nines of reliability, and about 55% of its pull requests now st...", url: "https://www.youtube.com/watch?v=S_lzYIvtEaQ" }] },
   { date: "2026-09-24", entries: [{ tool: "claude", title: "🎬 How AI is being used in humanitarian work", body: "A look at the International Rescue Committee's fight against child malnutrition in Nigeria and how Claude could help this work.", url: "https://www.youtube.com/watch?v=oZgcAsfvS_g" }] },
   { date: "2026-09-23", entries: [{ tool: "claude", title: "🎬 Inside Anthropic's molecular biology lab", body: "Some of the biggest discoveries in biology started with someone noticing something strange in one of the many molecular machines found in nature. We’re introducing a new molecular biology research gro...", url: "https://www.youtube.com/watch?v=DdCEmlAydcw" }] },
   { date: "2026-09-23", entries: [{ tool: "claude", title: "🎬 Using Claude Opus 5.5 as your daily driver", body: "Opus 5.5 is faster than Opus 5, better at telling you what it did, and 20% cheaper per token. On Pro, Max, and Team plans your limits go 25% further. This is what that looks like in daily Claude Code ...", url: "https://www.youtube.com/watch?v=jKRl_CSVxyI" }] },
