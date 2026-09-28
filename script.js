@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-09-28", entries: [{ tool: "claude", title: "🎬 Introducing Claude Sonnet 5.5", body: "Claude Sonnet 5.5 runs more than 30% faster than Sonnet 5 and writes more clearly, so it’s well suited to quick back-and-forth on the things you do most.  Where Claude Opus 5.5 is built for complex wo...", url: "https://www.youtube.com/watch?v=s5nkj-L2vAw" }] },
   { date: "2026-09-25", entries: [{ tool: "claude", title: "🎬 Building verification loops in Claude Code", body: "Claude Code already runs your tests, type checks, and linters. This video shows how to give it more ways to verify its own work, so it gets further on its own and needs fewer rounds of back and forth....", url: "https://www.youtube.com/watch?v=mQZB0l-rhxE" }] },
   { date: "2026-09-24", entries: [{ tool: "claude", title: "🎬 Patrick Collison on Claude Code at Stripe", body: "Stripe CEO Patrick Collison joined Boris to talk about how Stripe builds with Claude Code.  Stripe runs its core APIs at five and a half nines of reliability, and about 55% of its pull requests now st...", url: "https://www.youtube.com/watch?v=S_lzYIvtEaQ" }] },
   { date: "2026-09-24", entries: [{ tool: "claude", title: "🎬 How AI is being used in humanitarian work", body: "A look at the International Rescue Committee's fight against child malnutrition in Nigeria and how Claude could help this work.", url: "https://www.youtube.com/watch?v=oZgcAsfvS_g" }] },
