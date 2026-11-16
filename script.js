@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-11-16", entries: [{ tool: "claude", title: "🎬 How Expedia Group builds with Claude managed agents", body: "", url: "https://www.youtube.com/watch?v=Up_Z9sVQdy0" }] },
   { date: "2026-11-12", entries: [{ tool: "claude", title: "🎬 Introducing Claude Meetings", body: "Introducing Claude Meetings: add Claude to your team's video call and it builds docs, whiteboards, and other artifacts with you while you're still talking.  Claude joins as a visible participant. Ask ...", url: "https://www.youtube.com/watch?v=YUYeHMsqbmY" }] },
   { date: "2026-11-12", entries: [{ tool: "claude", title: "🎬 When to use every Claude model", body: "Try matching the Claude model to the scale of the work.  • Opus 5.5 for planning and building full features • Fable 5.2 for the most ambitious, open-ended technical work • Sonnet 5.5 for everyday work...", url: "https://www.youtube.com/watch?v=Esh-w8QVCpE" }] },
   { date: "2026-11-12", entries: [{ tool: "claude", title: "🎬 Mariko Mori's world of radiant light", body: "Mariko Mori’s exploration of technology as a means of creative expression has pushed the boundaries of art for more than three decades. For her retrospective exhibition Mariko Mori: All That Shines, s...", url: "https://www.youtube.com/watch?v=2_z9c-6AOSc" }] },
