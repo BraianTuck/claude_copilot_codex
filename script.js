@@ -451,6 +451,7 @@ const data = {
 
 const changelog = [
   // { date: "YYYY-MM-DD", entries: [{ tool: "claude", title: "...", body: "...", url: "..." }] }
+  { date: "2026-11-19", entries: [{ tool: "claude", title: "🎬 What we make of this moment, will make this moment.", body: "What we* make of this moment, will make this moment.  *a food bank in Texas, a PhD student in Tokyo with a floating cuttlefish robot, a first-time builder mapping 800 years of Indian history, a develo...", url: "https://www.youtube.com/watch?v=JDsFHmq9hlA" }] },
   { date: "2026-11-18", entries: [{ tool: "claude", title: "🎬 Five brand new ways to use Claude at work", body: "Claude's family of tools helps teams work at the speed of thought.  Add Claude to your call with Claude Meetings, and ask it out loud to start a board in Claude Whiteboards while it takes notes. After...", url: "https://www.youtube.com/watch?v=t2Zo3YAJdj4" }] },
   { date: "2026-11-17", entries: [{ tool: "claude", title: "🎬 A season on the farm with AI", body: "Martina Wanis is a biologist from Vienna who grows sweet potatoes in Slovenia. This year, she took Claude along for the whole season.", url: "https://www.youtube.com/watch?v=RRj07Hc3ikU" }] },
   { date: "2026-11-16", entries: [{ tool: "claude", title: "🎬 How Expedia Group builds with Claude managed agents", body: "", url: "https://www.youtube.com/watch?v=Up_Z9sVQdy0" }] },
